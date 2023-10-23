@@ -13,7 +13,7 @@ const HomeScreen = () => {
     setState(JSON.parse(localStorage.getItem("youtubeVideos")!));
   }, []);
 
-  console.log("start: ", state.items);
+  console.log("start: ", state?.items);
 
   return (
     <Container>
@@ -21,36 +21,37 @@ const HomeScreen = () => {
 
       <br />
       <Main>
-        {state?.items.map((props: any) => (
-          <Card
-          //   key={props.id.videoId}
-          >
-            <Top>
-              <Image
-                src={
-                  props.snippet.thumbnails.high.url
-                    ? props.snippet.thumbnails.high.url
-                    : pix
-                }
-              />
-              <Video src={video} playsInline loop muted autoPlay />
-              <Time>{moment(new Date().getTime()).format("LT")}</Time>
-            </Top>
-            <Bottom>
-              <Avatar src={props.snippet.thumbnails.high.url} />
-              <Content>
-                <ContentText>{props.snippet.channelTitle}</ContentText>
-                <SmallText>
-                  <Text>Lorem ipsum dolor sit amet.</Text>
-                  <Text>
-                    3K Views &middot; {moment(new Date().getTime()).fromNow()}
-                  </Text>
-                </SmallText>
-              </Content>
-              <Dots />
-            </Bottom>
-          </Card>
-        ))}
+        {state?.items &&
+          state?.items.map((props: any) => (
+            <Card
+            //   key={props.id.videoId}
+            >
+              <Top>
+                <Image
+                  src={
+                    props.snippet.thumbnails.high.url
+                      ? props.snippet.thumbnails.high.url
+                      : pix
+                  }
+                />
+                <Video src={video} playsInline loop muted autoPlay />
+                <Time>{moment(new Date().getTime()).format("LT")}</Time>
+              </Top>
+              <Bottom>
+                <Avatar src={props.snippet.thumbnails.high.url} />
+                <Content>
+                  <ContentText>{props.snippet.channelTitle}</ContentText>
+                  <SmallText>
+                    <Text>Lorem ipsum dolor sit amet.</Text>
+                    <Text>
+                      3K Views &middot; {moment(new Date().getTime()).fromNow()}
+                    </Text>
+                  </SmallText>
+                </Content>
+                <Dots />
+              </Bottom>
+            </Card>
+          ))}
       </Main>
     </Container>
   );

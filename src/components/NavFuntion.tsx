@@ -1,15 +1,13 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import { getVideos } from "../api/API";
 
 export const NavFunction = () => {
+  const [state, setState] = useState({});
+
   return (
     <NavHolder>
-      <Navi
-        col="d"
-        onClick={() => {
-          getVideos("All");
-        }}
-      >
+      <Navi col="d" onClick={() => {}}>
         All
       </Navi>
       <Navi
