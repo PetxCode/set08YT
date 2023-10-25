@@ -12,10 +12,31 @@ export const NavFunction = () => {
       </Navi>
       <Navi
         onClick={() => {
-          getVideos("News");
+          getVideos("News").then((res) => {
+            console.log("Show Me...");
+            localStorage.setItem("videos", JSON.stringify(res.News));
+          });
         }}
       >
         News
+      </Navi>
+      <Navi
+        onClick={() => {
+          getVideos("Sport").then((res) => {
+            localStorage.setItem("videos", JSON.stringify(res.Sport));
+          });
+        }}
+      >
+        Sport
+      </Navi>
+      <Navi
+        onClick={() => {
+          getVideos("War").then((res) => {
+            localStorage.setItem("videos", JSON.stringify(res.War));
+          });
+        }}
+      >
+        War
       </Navi>
     </NavHolder>
   );

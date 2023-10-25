@@ -3,7 +3,7 @@ import lodash from "lodash";
 
 const url: string = "http://localhost:2255";
 
-export const copyToRight = async (data: any) => {
+export const copyToWrite = async (data: any) => {
   try {
     return axios.post(`${url}/data`, data);
   } catch (error) {
@@ -49,21 +49,28 @@ export const getVideos = async (search: string) => {
     //   }
     // })();
 
-    const responseData = await axios.request(options);
+    // let x = [{ name: [2, 5, 8] }, { stack: [0, 9, 5] }, { score: [9, 3, 6] }];
+    // let y = { score: [9, 3, 6] };
 
-    let dataSearched = `${search}`;
+    const check = await copyToRead();
 
-    const response = {
-      data: {
-        [dataSearched]: responseData.data.items,
-      },
-    };
+    if (lodash.some(check.data, search)) {
+      return lodash.find(check.data, search);
+      // return check.data;
+    } else {
+      const responseData = await axios.request(options);
+      let dataSearched = `${search}`;
+      const response = {
+        data: {
+          [dataSearched]: responseData.data.items,
+        },
+      };
 
-    console.log("done!", responseData.data.items);
-
-    copyToRight(response);
-
-    return response.data;
+      copyToWrite(response);
+      return lodash.find(check.data, search);
+      // return response.data;
+    }
+    // console.log(await copyToRead());
   } catch (error) {
     console.error(error);
   }
